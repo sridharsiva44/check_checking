@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    tools{
+        maven 'Maven3'
+    }
+    stages {
+        stage ('Checkout') {
+            steps {
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sridharsiva44/new.git']]])
+            }
+        }
+        stage ('build') {
+            steps {
+                bat 'mvn clean install -f new/pom.xml'
+            }
+        }
+                stage ('Test') {
+            steps {
+                bat 'mvn clean install -f new/pom.xml'
+            }
+        }
+    }
+}
